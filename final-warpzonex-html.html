@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WarpZoneX - An exciting monster survival game where you battle endless waves of enemies in a time-warped dimension. Play online now!">
+    <meta name="keywords" content="WarpZoneX, monster survivors, online game, survival game, action game, browser game">
+    <title>WarpZoneX - Monster Survivors | Play Online Now</title>
+    <link rel="canonical" href="https://warpzonex.online">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        apple: {
+                            blue: '#007AFF',
+                            indigo: '#5856D6',
+                            purple: '#AF52DE',
+                            pink: '#FF2D55',
+                            red: '#FF3B30',
+                            orange: '#FF9500',
+                            yellow: '#FFCC00',
+                            green: '#34C759',
+                            teal: '#5AC8FA',
+                            gray: '#8E8E93',
+                            lightgray: '#F2F2F7',
+                            darkgray: '#1C1C1E'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        .game-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        
+        .responsive-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .dark-mode-toggle {
+                background-color: #1C1C1E;
+                color: white;
+            }
+        }
+        
+        @media (prefers-color-scheme: light) {
+            .dark-mode-toggle {
+                background-color: #F2F2F7;
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-apple-darkgray text-gray-900 dark:text-white">
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-apple-blue to-apple-indigo text-white py-8 px-4 md:px-6">
+        <div class="container mx-auto max-w-6xl">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-3">WarpZoneX: Monster Survivors</h1>
+            <p class="text-lg md:text-xl text-center">Battle endless waves of monsters in a time-warped dimension to become the ultimate survivor!</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto max-w-6xl px-4 py-8">
+        <!-- Game Section -->
+        <section class="mb-12">
+            <div class="game-container">
+                <div class="relative overflow-hidden rounded-lg shadow-xl bg-gradient-to-r from-apple-blue to-apple-purple">
+                    <div class="w-full h-64 md:h-96"></div>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-4 text-center">WarpZoneX: Monster Survivors</h3>
+                        <p class="text-lg mb-6 text-center max-w-lg">Battle endless waves of monsters, upgrade your character, and test your survival skills in this action-packed game!</p>
+                        <a href="https://end3r.github.io/Gamedev-Canvas-workshop/lesson10.html" target="_blank" class="px-8 py-4 bg-apple-red hover:bg-red-700 text-white font-bold rounded-lg text-xl transition-colors duration-200 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Play Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 text-center text-apple-gray dark:text-gray-300 text-sm">
+                <p>Game controls: WASD or Arrow Keys to move. Automatically attack nearby enemies. Collect experience to level up!</p>
+            </div>
+        </section>
+
+        <!-- Game Description Section -->
+        <section class="mb-10">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-apple-indigo dark:text-apple-teal border-b border-apple-lightgray dark:border-gray-700 pb-2">About WarpZoneX</h2>
+            <div class="bg-apple-lightgray dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                <p class="mb-4 leading-relaxed">WarpZoneX is an action-packed monster survival game set in a dimension where time and space have been warped by unknown forces. As one of the few survivors with special abilities, you must face increasingly difficult waves of monsters while collecting power-ups and unlocking new abilities.</p>
+                <p class="leading-relaxed">The game features stunning visuals, immersive sound effects, and addictive gameplay that will test your reflexes and strategic thinking. How long can you survive in the WarpZone?</p>
+            </div>
+        </section>
+
+        <!-- Game Features Section -->
+        <div class="grid md:grid-cols-2 gap-8 mb-10">
+            <section>
+                <h2 class="text-2xl md:text-3xl font-bold mb-6 text-apple-red dark:text-apple-orange border-b border-apple-lightgray dark:border-gray-700 pb-2">Game Features</h2>
+                <div class="bg-apple-lightgray dark:bg-gray-800 p-6 rounded-lg shadow-md h-full">
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <svg class="h-6 w-6 mr-2 text-apple-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Multiple character classes with unique abilities</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-6 w-6 mr-2 text-apple-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Procedurally generated levels for endless replay value</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-6 w-6 mr-2 text-apple-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Dynamic upgrade system to enhance your character's abilities</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-6 w-6 mr-2 text-apple-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Variety of monsters with different attack patterns</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-6 w-6 mr-2 text-apple-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Epic boss fights that will test your skills</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-6 w-6 mr-2 text-apple-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Beautiful visual effects and immersive audio</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section>
+                <h2 class="text-2xl md:text-3xl font-bold mb-6 text-apple-green dark:text-apple-teal border-b border-apple-lightgray dark:border-gray-700 pb-2">How to Play</h2>
+                <div class="bg-apple-lightgray dark:bg-gray-800 p-6 rounded-lg shadow-md h-full">
+                    <ol class="list-decimal list-inside space-y-4">
+                        <li class="leading-relaxed">
+                            <span class="font-semibold text-apple-blue dark:text-apple-teal">Movement:</span> Use WASD or arrow keys to move your character around the arena.
+                        </li>
+                        <li class="leading-relaxed">
+                            <span class="font-semibold text-apple-blue dark:text-apple-teal">Combat:</span> Your character automatically attacks nearby enemies. Position yourself strategically!
+                        </li>
+                        <li class="leading-relaxed">
+                            <span class="font-semibold text-apple-blue dark:text-apple-teal">Leveling Up:</span> Collect experience orbs from defeated enemies to level up and choose new abilities.
+                        </li>
+                        <li class="leading-relaxed">
+                            <span class="font-semibold text-apple-blue dark:text-apple-teal">Survival:</span> Stay alive as long as possible against increasingly difficult waves of monsters.
+                        </li>
+                        <li class="leading-relaxed">
+                            <span class="font-semibold text-apple-blue dark:text-apple-teal">Power-ups:</span> Look for special items that provide temporary boosts to your character.
+                        </li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+
+        <!-- Reviews Section -->
+        <section class="mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-apple-purple dark:text-apple-pink border-b border-apple-lightgray dark:border-gray-700 pb-2">Player Reviews</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-apple-lightgray dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <div class="flex items-center text-apple-yellow mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </div>
+                    <p class="italic mb-3 text-gray-700 dark:text-gray-300">"WarpZoneX is perfect for quick gaming sessions or longer marathon runs. The progression system is perfectly balanced for both casual and hardcore gamers."</p>
+                    <p class="text-apple-blue dark:text-apple-teal font-semibold">- Michael R.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Updates Section -->
+        <section class="mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-apple-orange dark:text-apple-yellow border-b border-apple-lightgray dark:border-gray-700 pb-2">Latest Updates</h2>
+            <div class="bg-apple-lightgray dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                <div class="mb-4 pb-4 border-b border-gray-300 dark:border-gray-700">
+                    <h3 class="text-xl font-semibold mb-2 text-apple-blue">Version 1.2.5 - Monster Madness Update</h3>
+                    <p class="text-gray-700 dark:text-gray-300">Added 5 new monster types and a special event boss that appears every 10 minutes. Rebalanced character progression and improved performance on mobile devices.</p>
+                </div>
+                <div class="mb-4 pb-4 border-b border-gray-300 dark:border-gray-700">
+                    <h3 class="text-xl font-semibold mb-2 text-apple-blue">Version 1.1.0 - Character Expansion</h3>
+                    <p class="text-gray-700 dark:text-gray-300">Introduced 3 new playable characters with unique abilities and passive skills. Added new achievements and leaderboard system to track your best runs.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-2 text-apple-blue">Version 1.0.0 - Initial Release</h3>
+                    <p class="text-gray-700 dark:text-gray-300">Welcome to WarpZoneX! The initial release includes the core gameplay, 3 playable characters, and 15 different monster types to battle against.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FAQ Section -->
+    <section class="bg-apple-blue bg-opacity-10 dark:bg-apple-blue dark:bg-opacity-20 py-12 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center text-apple-blue dark:text-apple-teal">Frequently Asked Questions</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-3 text-apple-indigo dark:text-apple-teal">Is WarpZoneX free to play?</h3>
+                    <p class="text-gray-700 dark:text-gray-300">Yes, WarpZoneX is completely free to play in your browser. No downloads or purchases required!</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-3 text-apple-indigo dark:text-apple-teal">Can I play WarpZoneX on mobile?</h3>
+                    <p class="text-gray-700 dark:text-gray-300">Absolutely! WarpZoneX is designed to work on both desktop and mobile devices with touch controls for mobile players.</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-3 text-apple-indigo dark:text-apple-teal">Does the game save my progress?</h3>
+                    <p class="text-gray-700 dark:text-gray-300">Your high scores and achievements are saved automatically when you play. You can continue your adventure any time!</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-3 text-apple-indigo dark:text-apple-teal">How often is the game updated?</h3>
+                    <p class="text-gray-700 dark:text-gray-300">We release updates approximately once a month with new content, balance adjustments, and quality of life improvements.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-apple-darkgray text-white py-10 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-xl font-bold mb-2">WarpZoneX</h2>
+                    <p class="text-gray-400">© 2025 WarpZoneX. All rights reserved.</p>
+                </div>
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-xl font-bold mb-2 text-center md:text-left">Quick Links</h2>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">About</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold mb-2 text-center md:text-left">Connect With Us</h2>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-apple-blue transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-white hover:text-apple-blue transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-white hover:text-apple-blue transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-white hover:text-apple-blue transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 text-center border-t border-gray-700 pt-6">
+                <p class="text-sm text-gray-400">WarpZoneX is not responsible for any addiction to monster slaying that may occur. Play responsibly!</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Dark mode toggle script -->
+    <script>
+        // Check for dark mode preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        
+        // Listen for changes in dark mode preference
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    </script>
+</body>
+</html> 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </div>
+                    <p class="italic mb-3 text-gray-700 dark:text-gray-300">"Absolutely addictive! I've been playing WarpZoneX for hours and can't put it down. The upgrade system keeps me coming back for more."</p>
+                    <p class="text-apple-blue dark:text-apple-teal font-semibold">- Alex P.</p>
+                </div>
+                <div class="bg-apple-lightgray dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <div class="flex items-center text-apple-yellow mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </div>
+                    <p class="italic mb-3 text-gray-700 dark:text-gray-300">"The graphics are amazing and the gameplay is super smooth. Love how each run feels different with the procedural generation."</p>
+                    <p class="text-apple-blue dark:text-apple-teal font-semibold">- Sarah K.</p>
+                </div>
+                <div class="bg-apple-lightgray dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <div class="flex items-center text-apple-yellow mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0
