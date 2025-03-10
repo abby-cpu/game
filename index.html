@@ -1,1 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WarpZoneX - Survive the Monster Apocalypse | Online Game</title>
+    <meta name="description" content="Play WarpZoneX online - an action-packed survival game where you battle waves of monsters in a time-warped dimension.">
+    <meta name="keywords" content="WarpZoneX, online game, monster survival, action game, browser game">
+    <link rel="canonical" href="https://warpzonex.online">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Add fallback styling for iframe issues -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Apple-inspired color palette
+                        'apple-blue': '#007AFF',
+                        'apple-green': '#34C759',
+                        'apple-indigo': '#5856D6',
+                        'apple-orange': '#FF9500',
+                        'apple-pink': '#FF2D55',
+                        'apple-purple': '#AF52DE',
+                        'apple-red': '#FF3B30',
+                        'apple-teal': '#5AC8FA',
+                        'apple-yellow': '#FFCC00',
+                        'apple-gray': '#8E8E93',
+                        'apple-gray-2': '#AEAEB2',
+                        'apple-gray-3': '#C7C7CC',
+                        'apple-gray-4': '#D1D1D6',
+                        'apple-gray-5': '#E5E5EA',
+                        'apple-gray-6': '#F2F2F7',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Custom styles -->
+    <style type="text/css">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        .game-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background-color: #000; /* Black background for loading */
+        }
+        .responsive-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            z-index: 1;
+        }
+        /* Loading indicator */
+        .game-container::after {
+            content: "Loading game...";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.5rem;
+            z-index: 0;
+        }
+        @media (max-width: 640px) {
+            .game-container {
+                padding-top: 75%; /* Adjusted for mobile */
+            }
+        }
+    </style>
+</head>
+<body class="bg-apple-gray-6 text-gray-800">
+    <header class="bg-apple-blue text-white shadow-md">
+        <div class="container mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between">
+            <div class="flex items-center mb-4 md:mb-0">
+                <div class="text-2xl font-bold">WarpZoneX</div>
+            </div>
+            <nav class="flex gap-6">
+                <a href="#about" class="hover:text-apple-yellow transition duration-300">About</a>
+                <a href="#how-to-play" class="hover:text-apple-yellow transition duration-300">How to Play</a>
+                <a href="#features" class="hover:text-apple-yellow transition duration-300">Features</a>
+            </nav>
+        </div>
+    </header>
 
+    <main class="container mx-auto px-4 py-8">
+        <section class="mb-12 text-center">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-apple-blue">WarpZoneX: Monster Survivors</h1>
+            <p class="text-xl md:text-2xl text-apple-gray mb-8">Navigate through time warps and survive waves of monsters in this action-packed adventure!</p>
+            <div class="mb-6">
+                <button id="start-game" class="bg-apple-green hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg text-lg shadow-lg transition duration-300">
+                    Start Game
+                </button>
+            </div>
+            <div class="game-container shadow-xl rounded-lg overflow-hidden border-4 border-apple-blue">
+                <iframe class="responsive-iframe" src="https://cloud.onlinegames.io/games/2025/unity/monster-survivors/index-og.html" allowfullscreen allow="fullscreen; autoplay; encrypted-media" sandbox="allow-forms allow-scripts allow-same-origin allow-popups"></iframe>
+            </div>
+        </section>
+
+        <section id="about" class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-apple-purple">About WarpZoneX</h2>
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <p class="mb-4">WarpZoneX is an immersive online survival game where players are transported to a dimension where time and space have collapsed. As the brave protagonist, you must navigate through endless waves of monsters while collecting power-ups and unlocking special abilities.</p>
+                <p class="mb-4">The game features stunning visuals, dynamic gameplay, and an engaging storyline that will keep you on the edge of your seat. With each playthrough offering a unique experience, WarpZoneX provides endless hours of entertainment for gamers of all skill levels.</p>
+                <p>The game is completely free to play directly in your browser, with no downloads required. Simply load the page and dive into the action!</p>
+            </div>
+        </section>
+
+        <section id="how-to-play" class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-apple-green">How to Play</h2>
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3 text-apple-blue">Controls</h3>
+                        <ul class="list-disc list-inside space-y-2 mb-6">
+                            <li>Use <span class="font-bold">WASD</span> or <span class="font-bold">arrow keys</span> to move your character</li>
+                            <li>Press <span class="font-bold">Space</span> to use your special ability</li>
+                            <li>Press <span class="font-bold">E</span> to interact with objects</li>
+                            <li>Press <span class="font-bold">1-4</span> to switch between weapons</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3 text-apple-blue">Tips for Success</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Collect power-ups to enhance your abilities</li>
+                            <li>Avoid getting surrounded by multiple enemies</li>
+                            <li>Prioritize speed and movement upgrades early on</li>
+                            <li>Use environmental objects to your advantage</li>
+                            <li>Don't stay in one place for too long</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-apple-orange">Game Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-3 text-apple-blue">Endless Gameplay</h3>
+                    <p>Each playthrough offers a unique experience with procedurally generated levels and enemy patterns.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-3 text-apple-blue">Power-Up System</h3>
+                    <p>Collect various power-ups that enhance your abilities and change your gameplay strategy.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-3 text-apple-blue">Monster Variety</h3>
+                    <p>Face dozens of unique monster types, each with their own attack patterns and weaknesses.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-3 text-apple-blue">Character Progression</h3>
+                    <p>Level up your character and unlock new abilities as you progress through the game.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-3 text-apple-blue">Time Mechanics</h3>
+                    <p>Experience unique time-warping mechanics that affect both you and your enemies.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-3 text-apple-blue">Leaderboards</h3>
+                    <p>Compete with players worldwide to achieve the highest score and longest survival time.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-apple-blue text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-xl font-bold">WarpZoneX</p>
+                    <p class="text-sm">© 2025 WarpZoneX. All rights reserved.</p>
+                </div>
+                <div class="flex gap-6">
+                    <a href="#privacy" class="hover:text-apple-yellow transition duration-300">Privacy Policy</a>
+                    <a href="#terms" class="hover:text-apple-yellow transition duration-300">Terms of Service</a>
+                    <a href="#contact" class="hover:text-apple-yellow transition duration-300">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Structured data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "WarpZoneX",
+        "description": "An action-packed survival game where you battle waves of monsters in a time-warped dimension.",
+        "genre": ["Action", "Survival", "Adventure"],
+        "gamePlatform": "Web Browser",
+        "applicationCategory": "Game",
+        "operatingSystem": "Any",
+        "url": "https://warpzonex.online",
+        "playMode": "SinglePlayer",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+        }
+    }
+    </script>
+    
+    <!-- JavaScript to handle iframe loading -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const gameContainer = document.querySelector('.game-container');
+            const iframe = document.querySelector('.responsive-iframe');
+            const startButton = document.getElementById('start-game');
+            
+            // Initially hide the iframe
+            iframe.style.display = 'none';
+            
+            // Show iframe when start button is clicked
+            startButton.addEventListener('click', function() {
+                iframe.style.display = 'block';
+                startButton.style.display = 'none';
+                
+                // Set src attribute when button is clicked to prevent automatic loading
+                if (!iframe.getAttribute('src')) {
+                    iframe.setAttribute('src', 'https://cloud.onlinegames.io/games/2025/unity/monster-survivors/index-og.html');
+                }
+                
+                // Force focus on iframe for better interactions
+                iframe.focus();
+            });
+            
+            // Handle iframe loading errors
+            iframe.addEventListener('error', function() {
+                gameContainer.innerHTML = '<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert"><strong>Game loading error!</strong> <span>Please try refreshing the page or check your connection.</span></div>';
+            });
+        });
+    </script>
+</body>
+</html>
