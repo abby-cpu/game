@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WarpZoneX - 记忆配对</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        h1 {
+            color: #4ecca3;
+            margin-bottom: 10px;
+        }
+        
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+        
+        .info-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        
+        .memory-game {
+            width: 90%;
+            max-width: 600px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            perspective: 1000px;
+        }
+        
+        .memory-card {
+            position: relative;
+            height: 0;
+            padding-bottom: 100%;
+            transform-style: preserve-3d;
+            transform: scale(1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .memory-card.flip {
+            transform: rotateY(180deg);
+        }
+        
+        .memory-card:active {
+            transform: scale(0.95);
+            transition: transform 0.1s;
+        }
+        
+        .front-face, .back-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .front-face {
+            background-color: #4ecca3;
+            transform: rotateY(180deg);
+            font-size: 2rem;
+        }
+        
+        .back-face {
+            background-color: #232741;
+            border: 2px solid #4ecca3;
+        }
+        
+        #game-over {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            display: none;
+        }
+        
+        #game-over h2 {
+            font-size: 36px;
+            color: #4ecca3;
+            margin-bottom: 20px;
+        }
+        
+        #game-over p {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        
+        #restart-btn {
+            padding: 12px 24px;
+            background-color: #4ecca3;
+            color: #1a1a2e;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        #back-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 500px) {
+            .memory-game {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>记忆配对游戏</h1>
+    
+    <div class="game-info">
+        <div class="info-item">配对: <span id="matches">0</span>/8</div>
+        <div class="info-item">步数: <span id="moves">0</span></div>
+        <div class="info-item">时间: <span id="timer">00:00</span></div>
+    </div>
+    
+    <section class="memory-game"></section>
+    
+    <div id="game-over">
+        <h2>恭喜！</h2>
+        <p>你用 <span id="final-moves">0</span> 步完成了游戏</p>
+        <p>用时: <span id="final-time">00:00</span></p>
+        <button id="restart-btn">再玩一次</button>
+    </div>
+    
+    <button id="back-btn" onclick="window.location.href='index.html'">返回主页</button>
+    
+    <script>
+        // 游戏元素
+        const gameContainer = document.querySelector('.memory-game');
+        const matchesDisplay = document.getElementById('matches');
+        const movesDisplay = document.getElementById('moves');
+        const timerDisplay = document.getElementById('timer');
+        const gameOverScreen = document.getElementById('game-over');
+        const finalMovesDisplay = document.getElementById('final-moves');
+        const finalTimeDisplay = document.getElementById('final-time');
+        const restartBtn = document.getElementById('restart-btn');
+        
+        // 游戏变量
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let matches = 0;
+        let moves = 0;
+        let timer;
+        let seconds = 0;
+        let gameStarted = false;
+        
+        // 卡片图标
+        const emojis = ['🚀', '🪐', '👾', '🛸', '🌌', '🔭', '🌠', '🌟'];
+        
+        // 初始化游戏
+        function initGame() {
+            // 创建卡片
+            const cardPairs = [...emojis, ...emojis];
+            const shuffledCards = shuffle(cardPairs);
+            
+            gameContainer.innerHTML = '';
+            
+            shuffledCards.forEach(emoji => {
+                const card = document.createElement('div');
+                card.classList.add('memory-card');
+                card.dataset.emoji = emoji;
+                
+                const frontFace = document.createElement('div');
+                frontFace.classList.add('front-face');
+                frontFace.textContent = emoji;
+                
+                const backFace = document.createElement('div');
+                backFace.classList.add('back-face');
+                backFace.textContent = '?';
+                
+                card.appendChild(frontFace);
+                card.appendChild(backFace);
+                
+                card.addEventListener('click', flipCard);
+                gameContainer.appendChild(card);
+            });
+            
+            // 重置游戏状态
+            matches = 0;
+            moves = 0;
+            seconds = 0;
+            gameStarted = false;
+            
+            matchesDisplay.textContent = matches;
+            movesDisplay.textContent = moves;
+            timerDisplay.textContent = '00:00';
+            
+            clearInterval(timer);
+        }
+        
+        // 洗牌函数
+        function shuffle(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+        
+        // 翻牌函数
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+            
+            this.classList.add('flip');
+            
+            // 开始计时
+            if (!gameStarted) {
+                startTimer();
+                gameStarted = true;
+            }
+            
+            if (!hasFlippedCard) {
+                // 第一张牌
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+            
+            // 第二张牌
+            secondCard = this;
+            moves++;
+            movesDisplay.textContent = moves;
+            
+            checkForMatch();
+        }
+        
+        // 检查配对
+        function checkForMatch() {
+            const isMatch = firstCard.dataset.emoji === secondCard.dataset.emoji;
+            
+            if (isMatch) {
+                disableCards();
+                matches++;
+                matchesDisplay.textContent = matches;
+                
+                // 检查游戏是否结束
+                if (matches === emojis.length) {
+                    setTimeout(() => {
+                        endGame();
+                    }, 500);
+                }
+            } else {
+                unflipCards();
+            }
+        }
+        
+        // 禁用已配对的卡片
+        function disableCards() {
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            
+            resetBoard();
+        }
+        
+        // 翻回未配对的卡片
+        function unflipCards() {
+            lockBoard = true;
+            
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+                
+                resetBoard();
+            }, 1000);
+        }
+        
+        // 重置翻牌状态
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+        
+        // 开始计时器
+        function startTimer() {
+            timer = setInterval(() => {
+                seconds++;
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = seconds % 60;
+                timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+        
+        // 游戏结束
+        function endGame() {
+            clearInterval(timer);
+            
+            finalMovesDisplay.textContent = moves;
+            finalTimeDisplay.textContent = timerDisplay.textContent;
+            
+            gameOverScreen.style.display = 'flex';
+        }
+        
+        // 重新开始游戏
+        restartBtn.addEventListener('click', () => {
+            gameOverScreen.style.display = 'none';
+            initGame();
+        });
+        
+        // 初始化游戏
+        initGame();
+    </script>
+</body>
+</html>
