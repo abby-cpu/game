@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #fff;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    padding: 40px 0;
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: #4ecca3;
+    text-shadow: 0 0 10px rgba(78, 204, 163, 0.5);
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #a3a3a3;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.game-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.game-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.game-thumbnail {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.space-adventure {
+    background-image: url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+}
+
+.snake-game {
+    background-image: url('https://images.unsplash.com/photo-1633793675529-144941070328?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+}
+
+.memory-match {
+    background-image: url('https://images.unsplash.com/photo-1559703248-dcaaec9fab78?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+}
+
+.game-card h2 {
+    padding: 20px 20px 10px;
+    font-size: 1.5rem;
+    color: #4ecca3;
+}
+
+.game-card p {
+    padding: 0 20px 20px;
+    color: #a3a3a3;
+}
+
+.play-btn {
+    display: block;
+    margin: 0 20px 20px;
+    padding: 10px;
+    background: #4ecca3;
+    color: #1a1a2e;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.play-btn:hover {
+    background: #3aa889;
+}
+
+footer {
+    text-align: center;
+    margin-top: 60px;
+    padding: 20px;
+    color: #a3a3a3;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    header h1 {
+        font-size: 2.5rem;
+    }
+}
