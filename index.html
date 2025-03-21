@@ -1,254 +1,706 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WarpZoneX - Survive the Monster Apocalypse | Online Game</title>
-    <meta name="description" content="Play WarpZoneX online - an action-packed survival game where you battle waves of monsters in a time-warped dimension.">
-    <meta name="keywords" content="WarpZoneX, online game, monster survival, action game, browser game">
-    <link rel="canonical" href="https://warpzonex.online">
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Add fallback styling for iframe issues -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        // Apple-inspired color palette
-                        'apple-blue': '#007AFF',
-                        'apple-green': '#34C759',
-                        'apple-indigo': '#5856D6',
-                        'apple-orange': '#FF9500',
-                        'apple-pink': '#FF2D55',
-                        'apple-purple': '#AF52DE',
-                        'apple-red': '#FF3B30',
-                        'apple-teal': '#5AC8FA',
-                        'apple-yellow': '#FFCC00',
-                        'apple-gray': '#8E8E93',
-                        'apple-gray-2': '#AEAEB2',
-                        'apple-gray-3': '#C7C7CC',
-                        'apple-gray-4': '#D1D1D6',
-                        'apple-gray-5': '#E5E5EA',
-                        'apple-gray-6': '#F2F2F7',
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Custom styles -->
-    <style type="text/css">
+    <title>WarpZoneX - 太空冒险</title>
+    <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-        .game-container {
-            position: relative;
-            width: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Courier New', monospace;
             overflow: hidden;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
-            background-color: #000; /* Black background for loading */
         }
-        .responsive-iframe {
+        
+        #game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            overflow: hidden;
+        }
+        
+        #stars {
             position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
             width: 100%;
             height: 100%;
-            border: none;
-            z-index: 1;
         }
-        /* Loading indicator */
-        .game-container::after {
-            content: "Loading game...";
+        
+        #player {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #4fc3f7;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #4fc3f7, 0 0 20px #4fc3f7;
+            transition: transform 0.1s;
+        }
+        
+        .enemy {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #f44336;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #f44336, 0 0 20px #f44336;
+        }
+        
+        .laser {
+            position: absolute;
+            width: 5px;
+            height: 15px;
+            background-color: #76ff03;
+            box-shadow: 0 0 5px #76ff03, 0 0 10px #76ff03;
+        }
+        
+        .explosion {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 165, 0, 0.8);
+            box-shadow: 0 0 20px rgba(255, 165, 0, 0.8), 0 0 40px rgba(255, 165, 0, 0.5);
+            animation: explode 0.5s forwards;
+        }
+        
+        @keyframes explode {
+            0% {
+                transform: scale(0.1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+        }
+        
+        #score {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            z-index: 100;
+        }
+        
+        #health {
+            position: absolute;
+            top: 50px;
+            left: 20px;
+            font-size: 24px;
+            z-index: 100;
+        }
+        
+        #level {
+            position: absolute;
+            top: 80px;
+            left: 20px;
+            font-size: 24px;
+            z-index: 100;
+        }
+        
+        #game-over {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: white;
-            font-size: 1.5rem;
-            z-index: 0;
+            font-size: 48px;
+            text-align: center;
+            display: none;
+            z-index: 200;
         }
-        @media (max-width: 640px) {
-            .game-container {
-                padding-top: 75%; /* Adjusted for mobile */
+        
+        #restart {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 24px;
+            background-color: #4fc3f7;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #power-up {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #ffeb3b;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ffeb3b, 0 0 20px #ffeb3b;
+            animation: pulse 1s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 10px #ffeb3b, 0 0 20px #ffeb3b;
+            }
+            100% {
+                transform: scale(1.2);
+                box-shadow: 0 0 15px #ffeb3b, 0 0 30px #ffeb3b;
+            }
+        }
+        
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            z-index: 100;
+        }
+        
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            margin: 0 10px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            user-select: none;
+        }
+        
+        @media (max-width: 768px) {
+            #controls {
+                display: block;
             }
         }
     </style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E6M4SWNXOZ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-E6M4SWNXOZ');
-</script>
 </head>
-<body class="bg-apple-gray-6 text-gray-800">
-    <header class="bg-apple-blue text-white shadow-md">
-        <div class="container mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between">
-            <div class="flex items-center mb-4 md:mb-0">
-                <div class="text-2xl font-bold">WarpZoneX</div>
-            </div>
-            <nav class="flex gap-6">
-                <a href="#about" class="hover:text-apple-yellow transition duration-300">About</a>
-                <a href="#how-to-play" class="hover:text-apple-yellow transition duration-300">How to Play</a>
-                <a href="#features" class="hover:text-apple-yellow transition duration-300">Features</a>
-            </nav>
+<body>
+    <div id="game-container">
+        <div id="stars"></div>
+        <div id="player"></div>
+        <div id="score">分数: 0</div>
+        <div id="health">生命: 100</div>
+        <div id="level">等级: 1</div>
+        <div id="game-over">
+            游戏结束<br>
+            最终分数: <span id="final-score">0</span><br>
+            <button id="restart">重新开始</button>
         </div>
-    </header>
-
-    <main class="container mx-auto px-4 py-8">
-        <section class="mb-12 text-center">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-apple-blue">WarpZoneX: Monster Survivors</h1>
-            <p class="text-xl md:text-2xl text-apple-gray mb-8">Navigate through time warps and survive waves of monsters in this action-packed adventure!</p>
-            <div class="mb-6">
-                <button id="start-game" class="bg-apple-green hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg text-lg shadow-lg transition duration-300">
-                    Start Game
-                </button>
-            </div>
-            <div class="game-container shadow-xl rounded-lg overflow-hidden border-4 border-apple-blue">
-                <iframe class="responsive-iframe" src="https://cloud.onlinegames.io/games/2025/unity/monster-survivors/index-og.html" allowfullscreen allow="fullscreen; autoplay; encrypted-media" sandbox="allow-forms allow-scripts allow-same-origin allow-popups"></iframe>
-            </div>
-        </section>
-
-        <section id="about" class="mb-12">
-            <h2 class="text-3xl font-bold mb-6 text-apple-purple">About WarpZoneX</h2>
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <p class="mb-4">WarpZoneX is an immersive online survival game where players are transported to a dimension where time and space have collapsed. As the brave protagonist, you must navigate through endless waves of monsters while collecting power-ups and unlocking special abilities.</p>
-                <p class="mb-4">The game features stunning visuals, dynamic gameplay, and an engaging storyline that will keep you on the edge of your seat. With each playthrough offering a unique experience, WarpZoneX provides endless hours of entertainment for gamers of all skill levels.</p>
-                <p>The game is completely free to play directly in your browser, with no downloads required. Simply load the page and dive into the action!</p>
-            </div>
-        </section>
-
-        <section id="how-to-play" class="mb-12">
-            <h2 class="text-3xl font-bold mb-6 text-apple-green">How to Play</h2>
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <h3 class="text-xl font-semibold mb-3 text-apple-blue">Controls</h3>
-                        <ul class="list-disc list-inside space-y-2 mb-6">
-                            <li>Use <span class="font-bold">WASD</span> or <span class="font-bold">arrow keys</span> to move your character</li>
-                            <li>Press <span class="font-bold">Space</span> to use your special ability</li>
-                            <li>Press <span class="font-bold">E</span> to interact with objects</li>
-                            <li>Press <span class="font-bold">1-4</span> to switch between weapons</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-semibold mb-3 text-apple-blue">Tips for Success</h3>
-                        <ul class="list-disc list-inside space-y-2">
-                            <li>Collect power-ups to enhance your abilities</li>
-                            <li>Avoid getting surrounded by multiple enemies</li>
-                            <li>Prioritize speed and movement upgrades early on</li>
-                            <li>Use environmental objects to your advantage</li>
-                            <li>Don't stay in one place for too long</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="features" class="mb-12">
-            <h2 class="text-3xl font-bold mb-6 text-apple-orange">Game Features</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold mb-3 text-apple-blue">Endless Gameplay</h3>
-                    <p>Each playthrough offers a unique experience with procedurally generated levels and enemy patterns.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold mb-3 text-apple-blue">Power-Up System</h3>
-                    <p>Collect various power-ups that enhance your abilities and change your gameplay strategy.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold mb-3 text-apple-blue">Monster Variety</h3>
-                    <p>Face dozens of unique monster types, each with their own attack patterns and weaknesses.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold mb-3 text-apple-blue">Character Progression</h3>
-                    <p>Level up your character and unlock new abilities as you progress through the game.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold mb-3 text-apple-blue">Time Mechanics</h3>
-                    <p>Experience unique time-warping mechanics that affect both you and your enemies.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold mb-3 text-apple-blue">Leaderboards</h3>
-                    <p>Compete with players worldwide to achieve the highest score and longest survival time.</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-apple-blue text-white py-8">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <p class="text-xl font-bold">WarpZoneX</p>
-                    <p class="text-sm">© 2025 WarpZoneX. All rights reserved.</p>
-                </div>
-                <div class="flex gap-6">
-                    <a href="#privacy" class="hover:text-apple-yellow transition duration-300">Privacy Policy</a>
-                    <a href="#terms" class="hover:text-apple-yellow transition duration-300">Terms of Service</a>
-                    <a href="#contact" class="hover:text-apple-yellow transition duration-300">Contact Us</a>
-                </div>
-            </div>
+        <div id="controls">
+            <div class="control-btn" id="left-btn">←</div>
+            <div class="control-btn" id="fire-btn">🔥</div>
+            <div class="control-btn" id="right-btn">→</div>
         </div>
-    </footer>
+    </div>
 
-    <!-- Structured data for SEO -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "VideoGame",
-        "name": "WarpZoneX",
-        "description": "An action-packed survival game where you battle waves of monsters in a time-warped dimension.",
-        "genre": ["Action", "Survival", "Adventure"],
-        "gamePlatform": "Web Browser",
-        "applicationCategory": "Game",
-        "operatingSystem": "Any",
-        "url": "https://warpzonex.online",
-        "playMode": "SinglePlayer",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD",
-            "availability": "https://schema.org/InStock"
-        }
-    }
-    </script>
-    
-    <!-- JavaScript to handle iframe loading -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const gameContainer = document.querySelector('.game-container');
-            const iframe = document.querySelector('.responsive-iframe');
-            const startButton = document.getElementById('start-game');
+        // 游戏变量
+        const gameContainer = document.getElementById('game-container');
+        const player = document.getElementById('player');
+        const scoreElement = document.getElementById('score');
+        const healthElement = document.getElementById('health');
+        const levelElement = document.getElementById('level');
+        const gameOverElement = document.getElementById('game-over');
+        const finalScoreElement = document.getElementById('final-score');
+        const restartButton = document.getElementById('restart');
+        const starsContainer = document.getElementById('stars');
+        
+        // 移动控制按钮
+        const leftBtn = document.getElementById('left-btn');
+        const rightBtn = document.getElementById('right-btn');
+        const fireBtn = document.getElementById('fire-btn');
+        
+        let score = 0;
+        let health = 100;
+        let level = 1;
+        let gameRunning = true;
+        
+        let playerX = window.innerWidth / 2 - 25;
+        let playerY = window.innerHeight - 100;
+        
+        let enemies = [];
+        let lasers = [];
+        let powerUps = [];
+        
+        let keys = {};
+        let lastShot = 0;
+        let shootCooldown = 300; // 射击冷却时间(毫秒)
+        
+        let enemySpeed = 2;
+        let enemySpawnRate = 1500; // 敌人生成速率(毫秒)
+        let powerUpChance = 0.1; // 能量道具生成概率
+        
+        let specialWeapon = false;
+        let specialWeaponTimer = null;
+        
+        // 初始化游戏
+        function initGame() {
+            // 设置玩家初始位置
+            player.style.left = `${playerX}px`;
+            player.style.top = `${playerY}px`;
             
-            // Initially hide the iframe
-            iframe.style.display = 'none';
+            // 创建星星背景
+            createStars();
             
-            // Show iframe when start button is clicked
-            startButton.addEventListener('click', function() {
-                iframe.style.display = 'block';
-                startButton.style.display = 'none';
+            // 开始游戏循环
+            gameLoop();
+            
+            // 定期生成敌人
+            enemySpawner = setInterval(spawnEnemy, enemySpawnRate);
+        }
+        
+        // 创建星星背景
+        function createStars() {
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
                 
-                // Set src attribute when button is clicked to prevent automatic loading
-                if (!iframe.getAttribute('src')) {
-                    iframe.setAttribute('src', 'https://cloud.onlinegames.io/games/2025/unity/monster-survivors/index-og.html');
+                const size = Math.random() * 3;
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                const speed = 0.1 + Math.random() * 0.3;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${x}px`;
+                star.style.top = `${y}px`;
+                star.dataset.speed = speed;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // 生成敌人
+        function spawnEnemy() {
+            if (!gameRunning) return;
+            
+            const enemy = document.createElement('div');
+            enemy.classList.add('enemy');
+            
+            const x = Math.random() * (window.innerWidth - 30);
+            const y = -30;
+            
+            enemy.style.left = `${x}px`;
+            enemy.style.top = `${y}px`;
+            
+            gameContainer.appendChild(enemy);
+            enemies.push({
+                element: enemy,
+                x: x,
+                y: y,
+                speed: enemySpeed + Math.random() * 2
+            });
+            
+            // 随机生成能量道具
+            if (Math.random() < powerUpChance) {
+                spawnPowerUp();
+            }
+        }
+        
+        // 生成能量道具
+        function spawnPowerUp() {
+            const powerUp = document.createElement('div');
+            powerUp.id = 'power-up';
+            
+            const x = Math.random() * (window.innerWidth - 30);
+            const y = -30;
+            
+            powerUp.style.left = `${x}px`;
+            powerUp.style.top = `${y}px`;
+            
+            gameContainer.appendChild(powerUp);
+            powerUps.push({
+                element: powerUp,
+                x: x,
+                y: y,
+                speed: 1 + Math.random()
+            });
+        }
+        
+        // 射击激光
+        function shoot() {
+            if (!gameRunning) return;
+            
+            const now = Date.now();
+            if (now - lastShot < shootCooldown) return;
+            
+            lastShot = now;
+            
+            if (specialWeapon) {
+                // 特殊武器: 三连发
+                for (let i = -1; i <= 1; i++) {
+                    const laser = document.createElement('div');
+                    laser.classList.add('laser');
+                    
+                    const x = playerX + 22.5 + (i * 10);
+                    const y = playerY;
+                    
+                    laser.style.left = `${x}px`;
+                    laser.style.top = `${y}px`;
+                    
+                    gameContainer.appendChild(laser);
+                    lasers.push({
+                        element: laser,
+                        x: x,
+                        y: y,
+                        speed: 7
+                    });
+                }
+            } else {
+                // 普通武器: 单发
+                const laser = document.createElement('div');
+                laser.classList.add('laser');
+                
+                const x = playerX + 22.5;
+                const y = playerY;
+                
+                laser.style.left = `${x}px`;
+                laser.style.top = `${y}px`;
+                
+                gameContainer.appendChild(laser);
+                lasers.push({
+                    element: laser,
+                    x: x,
+                    y: y,
+                    speed: 7
+                });
+            }
+        }
+        
+        // 检测碰撞
+        function checkCollisions() {
+            // 检测激光与敌人的碰撞
+            for (let i = lasers.length - 1; i >= 0; i--) {
+                const laser = lasers[i];
+                
+                for (let j = enemies.length - 1; j >= 0; j--) {
+                    const enemy = enemies[j];
+                    
+                    if (
+                        laser.x < enemy.x + 30 &&
+                        laser.x + 5 > enemy.x &&
+                        laser.y < enemy.y + 30 &&
+                        laser.y + 15 > enemy.y
+                    ) {
+                        // 创建爆炸效果
+                        createExplosion(enemy.x, enemy.y);
+                        
+                        // 移除敌人和激光
+                        gameContainer.removeChild(enemy.element);
+                        enemies.splice(j, 1);
+                        
+                        gameContainer.removeChild(laser.element);
+                        lasers.splice(i, 1);
+                        
+                        // 增加分数
+                        score += 10;
+                        scoreElement.textContent = `分数: ${score}`;
+                        
+                        // 检查升级
+                        checkLevelUp();
+                        
+                        break;
+                    }
+                }
+            }
+            
+            // 检测玩家与敌人的碰撞
+            for (let i = enemies.length - 1; i >= 0; i--) {
+                const enemy = enemies[i];
+                
+                if (
+                    playerX < enemy.x + 30 &&
+                    playerX + 50 > enemy.x &&
+                    playerY < enemy.y + 30 &&
+                    playerY + 50 > enemy.y
+                ) {
+                    // 创建爆炸效果
+                    createExplosion(enemy.x, enemy.y);
+                    
+                    // 移除敌人
+                    gameContainer.removeChild(enemy.element);
+                    enemies.splice(i, 1);
+                    
+                    // 减少生命值
+                    health -= 10;
+                    healthElement.textContent = `生命: ${health}`;
+                    
+                    // 检查游戏结束
+                    if (health <= 0) {
+                        endGame();
+                    }
+                }
+            }
+            
+            // 检测玩家与能量道具的碰撞
+            for (let i = powerUps.length - 1; i >= 0; i--) {
+                const powerUp = powerUps[i];
+                
+                if (
+                    playerX < powerUp.x + 30 &&
+                    playerX + 50 > powerUp.x &&
+                    playerY < powerUp.y + 30 &&
+                    playerY + 50 > powerUp.y
+                ) {
+                    // 移除能量道具
+                    gameContainer.removeChild(powerUp.element);
+                    powerUps.splice(i, 1);
+                    
+                    // 激活特殊武器
+                    activateSpecialWeapon();
+                }
+            }
+        }
+        
+        // 创建爆炸效果
+        function createExplosion(x, y) {
+            const explosion = document.createElement('div');
+            explosion.classList.add('explosion');
+            
+            explosion.style.left = `${x}px`;
+            explosion.style.top = `${y}px`;
+            
+            gameContainer.appendChild(explosion);
+            
+            // 爆炸动画结束后移除元素
+            setTimeout(() => {
+                if (explosion.parentNode === gameContainer) {
+                    gameContainer.removeChild(explosion);
+                }
+            }, 500);
+        }
+        
+        // 激活特殊武器
+        function activateSpecialWeapon() {
+            specialWeapon = true;
+            player.style.boxShadow = "0 0 10px #ffeb3b, 0 0 20px #ffeb3b";
+            
+            // 清除之前的计时器
+            if (specialWeaponTimer) {
+                clearTimeout(specialWeaponTimer);
+            }
+            
+            // 10秒后恢复普通武器
+            specialWeaponTimer = setTimeout(() => {
+                specialWeapon = false;
+                player.style.boxShadow = "0 0 10px #4fc3f7, 0 0 20px #4fc3f7";
+            }, 10000);
+        }
+        
+        // 检查升级
+        function checkLevelUp() {
+            const newLevel = Math.floor(score / 100) + 1;
+            
+            if (newLevel > level) {
+                level = newLevel;
+                levelElement.textContent = `等级: ${level}`;
+                
+                // 增加难度
+                enemySpeed += 0.5;
+                enemySpawnRate = Math.max(300, enemySpawnRate - 100);
+                
+                // 更新敌人生成速率
+                clearInterval(enemySpawner);
+                enemySpawner = setInterval(spawnEnemy, enemySpawnRate);
+            }
+        }
+        
+        // 游戏结束
+        function endGame() {
+            gameRunning = false;
+            clearInterval(enemySpawner);
+            
+            finalScoreElement.textContent = score;
+            gameOverElement.style.display = 'block';
+        }
+        
+        // 重新开始游戏
+        function restartGame() {
+            // 清除所有敌人和激光
+            enemies.forEach(enemy => {
+                if (enemy.element.parentNode === gameContainer) {
+                    gameContainer.removeChild(enemy.element);
+                }
+            });
+            
+            lasers.forEach(laser => {
+                if (laser.element.parentNode === gameContainer) {
+                    gameContainer.removeChild(laser.element);
+                }
+            });
+            
+            powerUps.forEach(powerUp => {
+                if (powerUp.element.parentNode === gameContainer) {
+                    gameContainer.removeChild(powerUp.element);
+                }
+            });
+            
+            // 重置游戏变量
+            enemies = [];
+            lasers = [];
+            powerUps = [];
+            score = 0;
+            health = 100;
+            level = 1;
+            enemySpeed = 2;
+            enemySpawnRate = 1500;
+            specialWeapon = false;
+            
+            // 更新显示
+            scoreElement.textContent = `分数: ${score}`;
+            healthElement.textContent = `生命: ${health}`;
+            levelElement.textContent = `等级: ${level}`;
+            
+            // 重置玩家位置
+            playerX = window.innerWidth / 2 - 25;
+            playerY = window.innerHeight - 100;
+            player.style.left = `${playerX}px`;
+            player.style.top = `${playerY}px`;
+            player.style.boxShadow = "0 0 10px #4fc3f7, 0 0 20px #4fc3f7";
+            
+            // 隐藏游戏结束画面
+            gameOverElement.style.display = 'none';
+            
+            // 重新开始游戏
+            gameRunning = true;
+            enemySpawner = setInterval(spawnEnemy, enemySpawnRate);
+        }
+        
+        // 游戏主循环
+        function gameLoop() {
+            if (gameRunning) {
+                // 更新玩家位置
+                if (keys['ArrowLeft'] || keys['a']) {
+                    playerX = Math.max(0, playerX - 5);
+                }
+                if (keys['ArrowRight'] || keys['d']) {
+                    playerX = Math.min(window.innerWidth - 50, playerX + 5);
+                }
+                if (keys[' '] || keys['w'] || keys['ArrowUp']) {
+                    shoot();
                 }
                 
-                // Force focus on iframe for better interactions
-                iframe.focus();
-            });
+                player.style.left = `${playerX}px`;
+                
+                // 更新激光位置
+                for (let i = lasers.length - 1; i >= 0; i--) {
+                    const laser = lasers[i];
+                    laser.y -= laser.speed;
+                    laser.element.style.top = `${laser.y}px`;
+                    
+                    // 移除超出屏幕的激光
+                    if (laser.y < -15) {
+                        gameContainer.removeChild(laser.element);
+                        lasers.splice(i, 1);
+                    }
+                }
+                
+                // 更新敌人位置
+                for (let i = enemies.length - 1; i >= 0; i--) {
+                    const enemy = enemies[i];
+                    enemy.y += enemy.speed;
+                    enemy.element.style.top = `${enemy.y}px`;
+                    
+                    // 移除超出屏幕的敌人
+                    if (enemy.y > window.innerHeight) {
+                        gameContainer.removeChild(enemy.element);
+                        enemies.splice(i, 1);
+                    }
+                }
+                
+                // 更新能量道具位置
+                for (let i = powerUps.length - 1; i >= 0; i--) {
+                    const powerUp = powerUps[i];
+                    powerUp.y += powerUp.speed;
+                    powerUp.element.style.top = `${powerUp.y}px`;
+                    
+                    // 移除超出屏幕的能量道具
+                    if (powerUp.y > window.innerHeight) {
+                        gameContainer.removeChild(powerUp.element);
+                        powerUps.splice(i, 1);
+                    }
+                }
+                
+                // 更新星星位置 (视差效果)
+                const stars = document.querySelectorAll('.star');
+                stars.forEach(star => {
+                    const y = parseFloat(star.style.top);
+                    const speed = parseFloat(star.dataset.speed);
+                    
+                    let newY = y + speed;
+                    if (newY > window.innerHeight) {
+                        newY = 0;
+                    }
+                    
+                    star.style.top = `${newY}px`;
+                });
+                
+                // 检测碰撞
+                checkCollisions();
+            }
             
-            // Handle iframe loading errors
-            iframe.addEventListener('error', function() {
-                gameContainer.innerHTML = '<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert"><strong>Game loading error!</strong> <span>Please try refreshing the page or check your connection.</span></div>';
-            });
+            // 继续游戏循环
+            requestAnimationFrame(gameLoop);
+        }
+        
+        // 键盘事件监听
+        document.addEventListener('keydown', (e) => {
+            keys[e.key] = true;
         });
+        
+        document.addEventListener('keyup', (e) => {
+            keys[e.key] = false;
+        });
+        
+        // 触摸控制
+        let leftPressed = false;
+        let rightPressed = false;
+        
+        leftBtn.addEventListener('touchstart', () => {
+            leftPressed = true;
+            keys['ArrowLeft'] = true;
+        });
+        
+        leftBtn.addEventListener('touchend', () => {
+            leftPressed = false;
+            keys['ArrowLeft'] = false;
+        });
+        
+        rightBtn.addEventListener('touchstart', () => {
+            rightPressed = true;
+            keys['ArrowRight'] = true;
+        });
+        
+        rightBtn.addEventListener('touchend', () => {
+            rightPressed = false;
+            keys['ArrowRight'] = false;
+        });
+        
+        fireBtn.addEventListener('touchstart', () => {
+            keys[' '] = true;
+        });
+        
+        fireBtn.addEventListener('touchend', () => {
+            keys[' '] = false;
+        });
+        
+        // 重新开始按钮
+        restartButton.addEventListener('click', restartGame);
+        
+        // 窗口大小改变时重新调整
+        window.addEventListener('resize', () => {
+            playerX = Math.min(window.innerWidth - 50, playerX);
+            playerY = window.innerHeight - 100;
+            player.style.left = `${playerX}px`;
+            player.style.top = `${playerY}px`;
+        });
+        
+        // 开始游戏
+        initGame();
     </script>
 </body>
 </html>
